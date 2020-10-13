@@ -1,7 +1,6 @@
 import Flutter
 import UIKit
 
-
 public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
 
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -12,25 +11,26 @@ public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if (call.method == SHOW_UNLOCK_CALL) {
-            //showUnlock(result: result)
+            showUnlock(result: result)
         } else if (call.method ==  INIT_DOORDECK_CALL) {
-            //initDoordeck(call, result: result)
+            initDoordeck(call, result: result)
         } else if (call.method == UPDATE_TOKEN_CALL) {
-            //updateToken(call, result: result)
+            updateToken(call, result: result)
         } else if (call.method == LOGOUT_CALL) {
-            //logout()
+            // Logout not implemented in the iOS SDK
         } else {
             result(FlutterMethodNotImplemented)
         }
     }
 
 
-    /*
+    
     private var doordeck: Doordeck! = nil
 
     @objc private func initDoordeck(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let authTokenString = call.argumentAt<String>(0) else {
-            result.sendCallError(
+        guard let authTokenString = (call.argumentAt(0) as? String) else {
+            sendCallError(
+                result,
                 argumentPosition: 0,
                 methodName: INIT_DOORDECK_CALL,
                 classExpected: "String"
@@ -38,8 +38,9 @@ public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
             return
         }
 
-        guard let darkMode = call.argumentAt<Bool>(1) else {
-            result.sendCallError(
+        guard let darkMode = (call.argumentAt(1) as? Bool) else {
+            sendCallError(
+                result,
                 argumentPosition: 1,
                 methodName: INIT_DOORDECK_CALL,
                 classExpected: "Bool"
@@ -47,8 +48,9 @@ public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
             return
         }
 
-        guard let closeButton = call.argumentAt<Bool>(2) else {
-            result.sendCallError(
+        guard let closeButton = (call.argumentAt(2) as? Bool) else {
+            sendCallError(
+                result,
                 argumentPosition: 2,
                 methodName: INIT_DOORDECK_CALL,
                 classExpected: "Bool"
@@ -63,8 +65,9 @@ public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
     }
 
     @objc private func updateToken(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let authTokenString = call.argumentAt<String>(0) else {
-            result.sendCallError(
+        guard let authTokenString = (call.argumentAt(0) as? String) else {
+            sendCallError(
+                result,
                 argumentPosition: 0,
                 methodName: INIT_DOORDECK_CALL,
                 classExpected: "String"
@@ -80,14 +83,7 @@ public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
         doordeck.updateAuthToken(authToken)
     }
 
-    @objc private func logout() {
-        guard let doordeck = self.doordeck else {
-            //result.sendInitializationError()
-            return
-        }
-    }
-
-    @obj private func showUnlock(result: @escaping FlutterResult) {
+    private func showUnlock(result: @escaping FlutterResult) {
         DispatchQueue.main.async {
             guard let doordeck = self.doordeck else {
                 //result.sendInitializationError()
@@ -96,10 +92,10 @@ public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
 
             doordeck.showUnlockScreen(success: {
                 print("success")
-            })
+            }, fail: {print("fail")})
         }
     }
-    */
+    
 }
 
 extension Collection {
@@ -109,33 +105,34 @@ extension Collection {
     }
 }
 
-/*
-extension FlutterResult {
-    func sendCallError(argumentPosition: Int, methodName: String, classExpected: String) {
-        return this(
-            FlutterError.init(
-                code: MISMATCH_METHOD_CALL,
-                message: "Impossible calling \(methodName) with a class \(classExpected) in the position \(argumentPosition)",
-                details: nil
-            )
-        )
-    }
 
-    func sendInitializationError() {
-        return this(
-            FlutterError.init(
-                code: INITIALIZATION_ERROR,
-                message: "Trying to access to the Doordeck instance without initializing it first (through \(INIT_CALL))",
-                details: nil
-            )
+
+func sendCallError(_ flutterResult: @escaping FlutterResult, argumentPosition: Int, methodName: String, classExpected: String) {
+    return flutterResult(
+        FlutterError.init(
+            code: MISMATCH_METHOD_CALL,
+            message: "Impossible calling \(methodName) with a class \(classExpected) in the position \(argumentPosition)",
+            details: nil
         )
-    }
+    )
 }
-*/
- 
+
+func sendInitializationError(_ flutterResult: @escaping FlutterResult) {
+    return flutterResult(
+        FlutterError.init(
+            code: INITIALIZATION_ERROR,
+            message: "Trying to access to the Doordeck instance without initializing it first (through \(INIT_DOORDECK_CALL))",
+            details: nil
+        )
+    )
+}
+
+
+
+
 extension FlutterMethodCall {
-    func argumentAt<T>(position: Int) -> T? {
-        return (self.arguments as! [Any])[safe: position] as? T
+    func argumentAt(_ position: Int) -> Any? {
+        return (self.arguments as! [Any])[safe: position]
     }
 }
 
@@ -152,3 +149,22 @@ private let VERIFICATION_NEEDED_CALLBACK = "verificationNeeded"
 
 private let MISMATCH_METHOD_CALL = "MISMATCH_METHOD_CALL"
 private let INITIALIZATION_ERROR = "INITIALIZATION_ERROR"
+
+extension SwiftDoordeckFlutterPlugin: DoordeckProtocol {
+    public func authenticated() {
+
+    }
+
+    public func verificationNeeded() {
+
+    }
+
+    public func newAuthTokenRequired() -> AuthTokenClass {
+      return AuthTokenClass("")
+    }
+
+    public func unlockSuccessful() {
+
+    }
+
+}

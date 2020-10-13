@@ -4,16 +4,17 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'doordeck_flutter_plugin'
-  s.version          = '1.0.0'
-  s.summary          = 'Flutter Plugin for the Doordeck\'s SDKs'
+  s.version          = '0.0.1'
+  s.summary          = 'A new Flutter plugin.'
   s.description      = <<-DESC
-Flutter Plugin for the Doordeck\'s SDKs
+A new Flutter plugin.
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*.{h,swift,storyboard,xib,xcassets,png,jpeg,jpg}'
+  s.source_files = 'Classes/**/*.{h,m,swift,storyboard,xib,xcassets,png,jpeg,jpg}'
+  s.resources = 'Classes/**/*.{cer}'
 
   s.dependency 'Flutter'
 

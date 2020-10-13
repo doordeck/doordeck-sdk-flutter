@@ -10,8 +10,12 @@ class DoordeckFlutterPlugin {
     await _channel.invokeMethod("showUnlock");
   }
 
-  static Future initDoordeck({@required String authToken, bool darkMode = false}) async {
-    return await _channel.invokeMethod("initDoordeck", [authToken, darkMode]);
+  static Future initDoordeck({
+    @required String authToken,
+    bool darkMode = false,
+    bool closeButton = false,
+  }) async {
+    return await _channel.invokeMethod("initDoordeck", [authToken, darkMode, closeButton]);
   }
 
   static Future updateToken({@required String newAuthToken}) async {
