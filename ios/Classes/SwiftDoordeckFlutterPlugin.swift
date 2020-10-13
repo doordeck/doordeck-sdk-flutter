@@ -1,9 +1,8 @@
 import Flutter
 import UIKit
 
-public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
 
-    private var doordeck: Doordeck! = nil
+public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "doordeck_flutter_plugin", binaryMessenger: registrar.messenger())
@@ -13,17 +12,21 @@ public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if (call.method == SHOW_UNLOCK_CALL) {
-            showUnlock(result: result)
+            //showUnlock(result: result)
         } else if (call.method ==  INIT_DOORDECK_CALL) {
-            initDoordeck(call, result: result)
+            //initDoordeck(call, result: result)
         } else if (call.method == UPDATE_TOKEN_CALL) {
-            updateToken(call, result: result)
+            //updateToken(call, result: result)
         } else if (call.method == LOGOUT_CALL) {
-            logout()
+            //logout()
         } else {
             result(FlutterMethodNotImplemented)
         }
     }
+
+
+    /*
+    private var doordeck: Doordeck! = nil
 
     @objc private func initDoordeck(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let authTokenString = call.argumentAt<String>(0) else {
@@ -96,6 +99,7 @@ public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
             })
         }
     }
+    */
 }
 
 extension Collection {
@@ -105,6 +109,7 @@ extension Collection {
     }
 }
 
+/*
 extension FlutterResult {
     func sendCallError(argumentPosition: Int, methodName: String, classExpected: String) {
         return this(
@@ -126,7 +131,8 @@ extension FlutterResult {
         )
     }
 }
-
+*/
+ 
 extension FlutterMethodCall {
     func argumentAt<T>(position: Int) -> T? {
         return (self.arguments as! [Any])[safe: position] as? T
