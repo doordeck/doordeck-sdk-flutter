@@ -1,0 +1,22 @@
+PODS:
+  - doordeck_flutter_plugin (1.0.0):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - doordeck_flutter_plugin (from `.symlinks/plugins/doordeck_flutter_plugin/ios`)
+  - Flutter (from `Flutter`)
+
+EXTERNAL SOURCES:
+  doordeck_flutter_plugin:
+    :path: ".symlinks/plugins/doordeck_flutter_plugin/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  doordeck_flutter_plugin: c00626eef04e4cdf8af44466eb4f5c87d79a798e
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+
+PODFILE CHECKSUM: 96ce85cde6649e6ef8781cb0f24980c68ac6e73b
+
+COCOAPODS: 1.9.3
