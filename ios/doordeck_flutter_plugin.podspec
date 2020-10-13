@@ -13,8 +13,16 @@ Flutter Plugin for the Doordeck\'s SDKs
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'Classes/**/*.{h,swift,storyboard,xib,xcassets,png,jpeg,jpg}'
+
   s.dependency 'Flutter'
+
+  s.dependency 'Alamofire', '~> 5.2.2'
+  s.dependency 'Cache', '~> 5.3.0'
+  s.dependency 'QRCodeReader.swift', '~> 10.1.0'
+  s.dependency 'ReachabilitySwift', '~> 5.0.0'
+  s.dependency 'Sodium', '~> 0.8.0'
+
   s.platform = :ios, '10.0'
   
   # Flutter.framework does not contain a i386 slice.
