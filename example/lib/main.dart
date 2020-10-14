@@ -14,9 +14,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    // ignore: avoid_init_to_null
+    String authToken = null;
+    if (authToken == null) {
+      throw Exception("Provide an API Key at _MyAppState.initState()");
+    }
     DoordeckFlutterPlugin.initDoordeck(
-      authToken:
-          "eyJraWQiOiJkZWZhdWx0IiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiIxMzQ3N2M0MC0zMTUzLTExZWEtYTI4Yy0wYjJmOWQxMDUzNzUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwic2Vzc2lvbiI6IjU4ODM2ODkwLTA5NzYtMTFlYi05MzIwLWQ5MDI4YThjNTNiNCIsIm5hbWUiOiJSYWZhIiwiaXNzIjoiaHR0cHM6XC9cL2FwaS5kb29yZGVjay5jb21cLyIsInJlZnJlc2giOmZhbHNlLCJleHAiOjE2MDI1Nzk2OTcsImlhdCI6MTYwMjQ5MzI5NywiZW1haWwiOiJyYXJ1aXptdUBnbWFpbC5jb20iLCJzaWQiOiI1ODgzNjg5MC0wOTc2LTExZWItOTMyMC1kOTAyOGE4YzUzYjQifQ.11osq6m-mE5oZoNtPvQjO8Pi6gcLh2oJTKPBjALwkk93NkwSfUeUg6VQKON_8xELGfDmlvaZeGXAosvc2tg1EQ",
+      authToken: authToken,
       darkMode: false,
     );
   }
