@@ -11,7 +11,10 @@ Pod::Spec.new do |s|
   s.homepage            = 'http://example.com'
   s.license             = { :type => "Apache", :file => "../LICENSE" }
   s.author              = { "Doordeck" => "support@doordeck.com" }
-  s.source              = { :path => '.' }
+  s.source              = {
+                            :git => 'https://github.com/doordeck/doordeck-sdk-flutter.git',
+                            :tag => s.version
+                          }
 
   s.source_files        = 'Classes/**/*.{h,m,swift,storyboard,xib,xcassets,png,jpeg,jpg}'
 
