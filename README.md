@@ -1,15 +1,19 @@
-# doordeck_flutter_plugin
 
-Flutter Plugin for the Doordeck's SDKs
+# doordeck_flutter_plugin  
+  
+Flutter Plugin for the Doordeck's SDKs  (Android & iOS)
+  
+## Instructions
+ Assuming that you have a running project already, please:
 
-## Getting Started
+### iOS
+Target your app at least to platform 10.0.
+To achieve this, modify your `Podfile`  and add:
+`platform :ios, '10.0'`
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+### Android
+Target your app to `minSdkVersion 21`
+#
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+Then be sure you follow the example.
+Any issues, please raise an issue at the [Github's repo](https://github.com/doordeck/doordeck-sdk-flutter).

@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
                             :tag => s.version
                           }
 
-  s.source_files        = 'Classes/**/*.{h,m,swift,storyboard,xib,xcassets,png,jpeg,jpg}'
+  s.source_files        = 'Classes/**/*.{h,m,swift,xib,xcassets,png,jpeg,jpg}'
 
   s.resources           = 'Classes/**/*.{cer,bundle,storyboard}'
 
