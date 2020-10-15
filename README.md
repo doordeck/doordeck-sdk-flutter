@@ -9,7 +9,7 @@ Flutter Plugin for the Doordeck's SDKs  (Android & iOS)
 ### iOS
 Target your app at least to platform 10.0.
 To achieve this, modify your `Podfile`  and add:
-`platform :ios, '10.0'`
+`platform :ios, '10.3'`
 
 ### Android
 Target your app to `minSdkVersion 21`

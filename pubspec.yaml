@@ -1,6 +1,6 @@
 name: doordeck_flutter_plugin
 description: Flutter Plugin for the Doordeck's SDKs
-version: 1.0.1+3
+version: 1.0.1+4
 homepage: https://github.com/doordeck/doordeck-sdk-flutter
 
 environment:
