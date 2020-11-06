@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
   s.source_files        = 'Classes/**/*.{h,m,swift,xib,xcassets,png,jpeg,jpg}'
 
-  s.resources           = 'Classes/**/*.{cer,bundle,storyboard}'
+  s.resources           = 'Classes/**/*.{cer,bundle,storyboard,xcassets}'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
