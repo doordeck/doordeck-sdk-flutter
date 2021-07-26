@@ -2,6 +2,7 @@ package io.flutter.plugins;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
+import io.flutter.Log;
 
 import io.flutter.embedding.engine.FlutterEngine;
 
@@ -12,7 +13,12 @@ import io.flutter.embedding.engine.FlutterEngine;
  */
 @Keep
 public final class GeneratedPluginRegistrant {
+  private static final String TAG = "GeneratedPluginRegistrant";
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
-    flutterEngine.getPlugins().add(new com.doordeck_flutter_plugin.DoordeckFlutterPlugin());
+    try {
+      flutterEngine.getPlugins().add(new com.doordeck_flutter_plugin.DoordeckFlutterPlugin());
+    } catch(Exception e) {
+      Log.e(TAG, "Error registering plugin doordeck_flutter_plugin, com.doordeck_flutter_plugin.DoordeckFlutterPlugin", e);
+    }
   }
 }

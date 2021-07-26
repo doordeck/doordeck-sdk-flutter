@@ -14,9 +14,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    // ignore: avoid_init_to_null
-    String authToken = null;
-    if (authToken == null) {
+    // Replace with your token for this example
+    String authToken = "";
+    if (authToken.isEmpty) {
       throw Exception("Provide an API Key at _MyAppState.initState()");
     }
     DoordeckFlutterPlugin.initDoordeck(
