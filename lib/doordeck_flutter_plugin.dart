@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 class DoordeckFlutterPlugin {
   static const MethodChannel _channel = const MethodChannel('doordeck_flutter_plugin');
@@ -11,14 +10,14 @@ class DoordeckFlutterPlugin {
   }
 
   static Future initDoordeck({
-    @required String authToken,
+    required String authToken,
     bool darkMode = false,
     bool closeButton = false,
   }) async {
     return await _channel.invokeMethod("initDoordeck", [authToken, darkMode, closeButton]);
   }
 
-  static Future updateToken({@required String newAuthToken}) async {
+  static Future updateToken({required String newAuthToken}) async {
     await _channel.invokeMethod("updateToken", [newAuthToken]);
   }
 
