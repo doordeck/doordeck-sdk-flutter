@@ -1,3 +1,6 @@
+## 2.0.2
+Updated Android SDK to match Multi-device compatibility
+
 ## 2.0.1
 Updated Android SDK
 
