@@ -1,6 +1,3 @@
-## 2.0.3
-Updated Android SDK for certificate's pattern change
-
 ## 2.0.2
 Updated Android SDK to match Multi-device compatibility
 
