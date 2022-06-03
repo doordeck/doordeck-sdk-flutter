@@ -95,8 +95,6 @@ class AFRequest {
                       object: "AFRequest Error \(APIClient.error.unsuccessfulHTTPStatusCode(statusCode: statusCode)) \n URL: \(url)")
                 onError?(APIClient.error.unsuccessfulHTTPStatusCode(statusCode: statusCode))
                 
-                doordeckNotifications().logout()
-                
             case 423:
                 print(PrintChannel.error,
                       object: "AFRequest Error \(APIClient.error.unsuccessfulHTTPStatusCode(statusCode: statusCode)) \n URL: \(url)")
@@ -143,8 +141,6 @@ class AFRequest {
                 print(PrintChannel.error, object: "AFRequest Error \(APIClient.error.unsuccessfulHTTPStatusCode(statusCode: statusCode)) \n URL: \(url)")
                 onError?(APIClient.error.unsuccessfulHTTPStatusCode(statusCode: statusCode))
                 
-                doordeckNotifications().logout()
-                
             case 423:
                 print(PrintChannel.error,
                       object: "AFRequest Error \(APIClient.error.unsuccessfulHTTPStatusCode(statusCode: statusCode)) \n URL: \(url)")
@@ -167,7 +163,6 @@ class AFRequest {
     
     func serverTrustPolicy() -> [String: PinnedCertificatesTrustEvaluator]{
         let bundle: Bundle = Bundle(for: type(of: self))
-        
         let amazonRootCA1Data = NSData(contentsOf: bundle.url(forResource: "AmazonRootCA1", withExtension: "cer")!)
         let amazonRootCA2Data = NSData(contentsOf: bundle.url(forResource: "AmazonRootCA2", withExtension: "cer")!)
         let amazonRootCA3Data = NSData(contentsOf: bundle.url(forResource: "AmazonRootCA3", withExtension: "cer")!)
