@@ -1,3 +1,6 @@
+## 2.0.5
+Update Android SDK for Newer endpoints on v3
+
 ## 2.0.3
 Updated Android SDK for certificate's pattern change
 
