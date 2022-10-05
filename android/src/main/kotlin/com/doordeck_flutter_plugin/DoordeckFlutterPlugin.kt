@@ -55,7 +55,7 @@ class DoordeckFlutterPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     private fun logout(result: Result) {
-        return doordeck?.logout() ?: result.sendInitializationError()
+        return doordeck?.logout(context) ?: result.sendInitializationError()
     }
 
     private fun showUnlock(result: Result) {
