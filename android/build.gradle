@@ -15,15 +15,15 @@ if (flutterRoot == null) {
 }
 
 buildscript {
-    ext.kotlin_version = '1.4.10'
-    ext.doordeck_android_sdk_version = '2.0.5'
+    ext.kotlin_version = '1.8.0'
+    ext.doordeck_android_sdk_version = '2.0.14'
     repositories {
         google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.2'
+        classpath 'com.android.tools.build:gradle:7.4.2'
     }
 }
 
@@ -39,7 +39,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 33
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'

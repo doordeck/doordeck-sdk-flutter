@@ -1,3 +1,9 @@
+## 2.0.14
+Update Android libraries, migrated Gradle and Java version
+
+## 2.0.6
+Update Android example and fix Doordeck's Android SDK
+
 ## 2.0.5
 Update Android SDK for Newer endpoints on v3
 
