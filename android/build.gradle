@@ -16,7 +16,7 @@ if (flutterRoot == null) {
 
 buildscript {
     ext.kotlin_version = '1.8.0'
-    ext.doordeck_android_sdk_version = '2.0.15'
+    ext.doordeck_android_sdk_version = '2.0.15-1'
     repositories {
         google()
         jcenter()

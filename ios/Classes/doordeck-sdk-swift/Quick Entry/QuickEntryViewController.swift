@@ -49,6 +49,18 @@ class QuickEntryViewController: UIViewController {
         setupUI()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+    @objc func appWillResignActive(_ notification: Notification) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
     func setupUI() {
         view.backgroundColor = .doordeckPrimaryColour()
     }
