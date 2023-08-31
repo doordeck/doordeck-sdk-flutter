@@ -1,3 +1,6 @@
+## 2.0.19
+Updated Android libraries
+
 ## 2.0.18
 Update iOS libraries
 
