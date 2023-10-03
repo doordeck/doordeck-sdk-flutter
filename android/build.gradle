@@ -16,19 +16,22 @@ if (flutterRoot == null) {
 
 buildscript {
     ext.kotlin_version = '1.8.0'
-    ext.doordeck_android_sdk_version = '2.0.16'
+    ext.doordeck_android_sdk_version = '2.2.0'
     repositories {
+        mavenLocal()
         google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:8.1.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
 rootProject.allprojects {
     repositories {
+        mavenLocal()
         google()
         jcenter()
         maven { url 'https://www.jitpack.io' }
@@ -39,6 +42,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    if (getGradle().getGradleVersion().substring(0, 1).toInteger() >= 8) {
+        namespace "com.doordeck_flutter_plugin"
+    }
+
     compileSdkVersion 33
 
     sourceSets {

@@ -33,13 +33,41 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-            child: MaterialButton(
-          onPressed: () {
-            DoordeckFlutterPlugin.showUnlock();
-          },
-          child: Text('Show unlock'),
-        )),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MaterialButton(
+                  onPressed: DoordeckFlutterPlugin.showUnlock,
+                  child: Text('Show unlock'),
+                ),
+                _buildUnlockWithUUID(),
+              ],
+            ),
+          ),
+        ),
       ),
+    );
+  }
+
+  Widget _buildUnlockWithUUID() {
+    final TextEditingController textEditingController = TextEditingController();
+    return Row(
+      children: [
+        Flexible(
+          child: TextField(
+            controller: textEditingController,
+            decoration: InputDecoration(
+              hintText: "Enter your tile id here (UUID)",
+            ),
+          ),
+        ),
+        MaterialButton(
+          onPressed: () => DoordeckFlutterPlugin.unlockWithUUID(uuid: textEditingController.text),
+          child: Icon(Icons.send),
+        ),
+      ],
     );
   }
 }
