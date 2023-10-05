@@ -66,24 +66,10 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         MaterialButton(
-          onPressed: () => _unlockTile(textEditingController.text),
+          onPressed: () => DoordeckFlutterPlugin.unlockTileID(uuid: textEditingController.text),
           child: Icon(Icons.send),
         ),
       ],
     );
-  }
-
-  Future _unlockTile(String inputUUID) async {
-    if (Platform.isAndroid) {
-      DoordeckFlutterPlugin.unlockTileID(uuid: inputUUID);
-    } else if (Platform.isIOS) {
-      /// We must show our [QuickEntryViewController] anyhow in order to make this work.
-      /// This is an accepted workaround at the moment
-      DoordeckFlutterPlugin.showUnlock();
-      await Future.delayed(Duration(seconds: 1));
-      DoordeckFlutterPlugin.unlockTileID(uuid: inputUUID);
-    } else {
-      throw UnimplementedError("Not implemented for other platforms");
-    }
   }
 }
