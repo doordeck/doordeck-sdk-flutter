@@ -40,9 +40,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    if (getGradle().getGradleVersion().substring(0, 1).toInteger() >= 8) {
-        namespace "com.doordeck_flutter_plugin"
-    }
+    namespace "com.doordeck_flutter_plugin"
 
     compileSdkVersion 33
 
