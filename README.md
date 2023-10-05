@@ -7,9 +7,9 @@ Flutter Plugin for the Doordeck's SDKs  (Android & iOS)
  Assuming that you have a running project already, please:
 
 ### iOS
-1. Target your app at least to platform 11
+1. Target your app at least to platform 12
   To achieve this, modify your `Podfile`  and add:
-  `platform :ios, '11'`
+  `platform :ios, '12'`
 2. Enable the NFC Tag Reading Capability.
   To achieve this, go to your *Certificates, Identifiers & Profiles* (Dev center) page to add manually the NFC capability.
   Also add the entitlement into the Xcode project:

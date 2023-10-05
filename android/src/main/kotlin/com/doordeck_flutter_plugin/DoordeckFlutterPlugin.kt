@@ -47,7 +47,7 @@ class DoordeckFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             UPDATE_TOKEN_CALL -> updateToken(call, result)
             LOGOUT_CALL -> logout(result)
             INIT_CALL -> initDoordeck(call, result)
-            UNLOCK_WITH_UUID_CALL -> unlockWithUUID(call, result)
+            UNLOCK_TILE_ID_CALL -> unlockTileID(call, result)
             else -> result.notImplemented()
         }
     }
@@ -69,10 +69,10 @@ class DoordeckFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         )
     }
 
-    private fun unlockWithUUID(call: MethodCall, result: Result) {
-        return doordeck?.unlock(
+    private fun unlockTileID(call: MethodCall, result: Result) {
+        return doordeck?.unlockTileID(
             ctx = activity,
-            uuid = call.argumentAt<String>(0) ?: return result.sendCallError(0, UNLOCK_WITH_UUID_CALL, String::class.toString()),
+            tileID = call.argumentAt<String>(0) ?: return result.sendCallError(0, UNLOCK_TILE_ID_CALL, String::class.toString()),
             callback = unlockCallBack,
         ) ?: result.sendInitializationError()
     }
@@ -110,7 +110,7 @@ class DoordeckFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     companion object {
         private const val SHOW_UNLOCK_CALL = "showUnlock"
-        private const val UNLOCK_WITH_UUID_CALL = "unlockWithUUID"
+        private const val UNLOCK_TILE_ID_CALL = "unlockTileID"
         private const val UPDATE_TOKEN_CALL = "updateToken"
         private const val LOGOUT_CALL = "logout"
         private const val INIT_CALL = "initDoordeck"

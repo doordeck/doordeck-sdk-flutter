@@ -21,8 +21,8 @@ class DoordeckFlutterPlugin {
     await _channel.invokeMethod("updateToken", [newAuthToken]);
   }
 
-  static Future unlockWithUUID({required String uuid}) async {
-    await _channel.invokeMethod("unlockWithUUID", [uuid]);
+  static Future unlockTileID({required String uuid}) async {
+    await _channel.invokeMethod("unlockTileID", [uuid]);
   }
 
   static Future logout() async {

@@ -14,6 +14,8 @@ public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
             showUnlock(result: result)
         } else if (call.method ==  INIT_DOORDECK_CALL) {
             initDoordeck(call, result: result)
+        } else if (call.method == UNLOCK_TILE_ID_CALL) {
+            unlockTileID(call, result: result)
         } else if (call.method == UPDATE_TOKEN_CALL) {
             updateToken(call, result: result)
         } else if (call.method == LOGOUT_CALL) {
@@ -77,10 +79,27 @@ public class SwiftDoordeckFlutterPlugin: NSObject, FlutterPlugin {
 
         let authToken = AuthTokenClass(authTokenString)
         guard let doordeck = doordeck else {
-            //result.sendInitializationError()
             return
         }
         doordeck.updateAuthToken(authToken)
+    }
+
+    @objc private func unlockTileID(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let uuid = (call.argumentAt(0) as? String) else {
+            sendCallError(
+                result,
+                argumentPosition: 0,
+                methodName: UNLOCK_TILE_ID_CALL,
+                classExpected: "String"
+            )
+            return
+        }
+
+        guard let doordeck = doordeck else {
+            return
+        }
+
+        doordeck.unlockTileID(uuid)
     }
 
     private func showUnlock(result: @escaping FlutterResult) {
@@ -138,6 +157,7 @@ extension FlutterMethodCall {
 
 private let SHOW_UNLOCK_CALL = "showUnlock"
 private let INIT_DOORDECK_CALL = "initDoordeck"
+private let UNLOCK_TILE_ID_CALL = "unlockTileID"
 private let UPDATE_TOKEN_CALL = "updateToken"
 private let LOGOUT_CALL = "logout"
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:doordeck_flutter_plugin/doordeck_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +44,7 @@ class _MyAppState extends State<MyApp> {
                   onPressed: DoordeckFlutterPlugin.showUnlock,
                   child: Text('Show unlock'),
                 ),
-                _buildUnlockWithUUID(),
+                _buildUnlockByTileID(),
               ],
             ),
           ),
@@ -51,7 +53,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  Widget _buildUnlockWithUUID() {
+  Widget _buildUnlockByTileID() {
     final TextEditingController textEditingController = TextEditingController();
     return Row(
       children: [
@@ -59,15 +61,29 @@ class _MyAppState extends State<MyApp> {
           child: TextField(
             controller: textEditingController,
             decoration: InputDecoration(
-              hintText: "Enter your tile id here (UUID)",
+              hintText: "Enter your tile ID here (UUID)",
             ),
           ),
         ),
         MaterialButton(
-          onPressed: () => DoordeckFlutterPlugin.unlockWithUUID(uuid: textEditingController.text),
+          onPressed: () => _unlockTile(textEditingController.text),
           child: Icon(Icons.send),
         ),
       ],
     );
+  }
+
+  Future _unlockTile(String inputUUID) async {
+    if (Platform.isAndroid) {
+      DoordeckFlutterPlugin.unlockTileID(uuid: inputUUID);
+    } else if (Platform.isIOS) {
+      /// We must show our [QuickEntryViewController] anyhow in order to make this work.
+      /// This is an accepted workaround at the moment
+      DoordeckFlutterPlugin.showUnlock();
+      await Future.delayed(Duration(seconds: 1));
+      DoordeckFlutterPlugin.unlockTileID(uuid: inputUUID);
+    } else {
+      throw UnimplementedError("Not implemented for other platforms");
+    }
   }
 }
