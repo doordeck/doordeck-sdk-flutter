@@ -1,3 +1,6 @@
+## 2.2.2
+Added `unlockTileID` to enable unlocking a tile id (UUID format needed)
+
 ## 2.0.19
 Updated Android libraries
 

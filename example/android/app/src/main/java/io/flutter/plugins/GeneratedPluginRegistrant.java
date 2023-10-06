@@ -17,7 +17,7 @@ public final class GeneratedPluginRegistrant {
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     try {
       flutterEngine.getPlugins().add(new com.doordeck_flutter_plugin.DoordeckFlutterPlugin());
-    } catch(Exception e) {
+    } catch (Exception e) {
       Log.e(TAG, "Error registering plugin doordeck_flutter_plugin, com.doordeck_flutter_plugin.DoordeckFlutterPlugin", e);
     }
   }

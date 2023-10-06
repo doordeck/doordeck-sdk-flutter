@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:doordeck_flutter_plugin/doordeck_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 
@@ -33,13 +35,41 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-            child: MaterialButton(
-          onPressed: () {
-            DoordeckFlutterPlugin.showUnlock();
-          },
-          child: Text('Show unlock'),
-        )),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MaterialButton(
+                  onPressed: DoordeckFlutterPlugin.showUnlock,
+                  child: Text('Show unlock'),
+                ),
+                _buildUnlockByTileID(),
+              ],
+            ),
+          ),
+        ),
       ),
+    );
+  }
+
+  Widget _buildUnlockByTileID() {
+    final TextEditingController textEditingController = TextEditingController();
+    return Row(
+      children: [
+        Flexible(
+          child: TextField(
+            controller: textEditingController,
+            decoration: InputDecoration(
+              hintText: "Enter your tile ID here (UUID)",
+            ),
+          ),
+        ),
+        MaterialButton(
+          onPressed: () => DoordeckFlutterPlugin.unlockTileID(uuid: textEditingController.text),
+          child: Icon(Icons.send),
+        ),
+      ],
     );
   }
 }

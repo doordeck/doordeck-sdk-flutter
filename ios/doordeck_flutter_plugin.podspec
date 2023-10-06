@@ -3,7 +3,7 @@
 # Run `pod lib lint doordeck_flutter_plugin.podspec' to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.platform = :ios, '10.0'
+  s.platform = :ios, '12.0'
   s.name                = 'doordeck_flutter_plugin'
   s.version             = '1.0.0'
   s.social_media_url    = "https://twitter.com/doordeck"
@@ -30,6 +30,6 @@ Pod::Spec.new do |s|
   s.dependency 'Cache', '~> 5.3.0'
   s.dependency 'QRCodeReader.swift', '~> 10.1.0'
   s.dependency 'ReachabilitySwift', '~> 5.0.0'
-  s.dependency 'Sodium', '~> 0.8.0'
+  s.dependency 'Sodium', '~> 0.9.1'
 
 end

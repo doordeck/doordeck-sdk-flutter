@@ -1,5 +1,6 @@
 package com.doordeck_flutter_plugin
 
+import android.app.Activity
 import android.content.Context
 import android.nfc.NfcManager
 import androidx.annotation.NonNull
@@ -7,18 +8,21 @@ import com.doordeck.sdk.common.events.UnlockCallback
 import com.doordeck.sdk.common.manager.Doordeck
 import com.doordeck.sdk.common.manager.ScanType
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
-class DoordeckFlutterPlugin : FlutterPlugin, MethodCallHandler {
+class DoordeckFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     /// The MethodChannel that will the communication between Flutter and native Android
     ///
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
     /// when the Flutter Engine is detached from the Activity
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
+    private lateinit var activity: Activity
     private var doordeck: Doordeck? = null
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -27,12 +31,23 @@ class DoordeckFlutterPlugin : FlutterPlugin, MethodCallHandler {
         context = flutterPluginBinding.applicationContext
     }
 
+    override fun onDetachedFromActivityForConfigChanges() = Unit // NO-OP
+
+    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) = Unit // NO-OP
+
+    override fun onDetachedFromActivity() = Unit // NO-OP
+
+    override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        activity = binding.activity
+    }
+
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             SHOW_UNLOCK_CALL -> showUnlock(result)
             UPDATE_TOKEN_CALL -> updateToken(call, result)
             LOGOUT_CALL -> logout(result)
             INIT_CALL -> initDoordeck(call, result)
+            UNLOCK_TILE_ID_CALL -> unlockTileID(call, result)
             else -> result.notImplemented()
         }
     }
@@ -48,10 +63,18 @@ class DoordeckFlutterPlugin : FlutterPlugin, MethodCallHandler {
         val darkMode = call.argumentAt<Boolean>(1) ?: return result.sendCallError(0, INIT_CALL, Boolean::class.toString())
 
         doordeck = Doordeck.initialize(
-                ctx = context,
-                authToken = authToken,
-                darkMode = darkMode
+            ctx = context,
+            authToken = authToken,
+            darkMode = darkMode
         )
+    }
+
+    private fun unlockTileID(call: MethodCall, result: Result) {
+        return doordeck?.unlockTileID(
+            ctx = activity,
+            tileID = call.argumentAt<String>(0) ?: return result.sendCallError(0, UNLOCK_TILE_ID_CALL, String::class.toString()),
+            callback = unlockCallBack,
+        ) ?: result.sendInitializationError()
     }
 
     private fun logout(result: Result) {
@@ -60,17 +83,17 @@ class DoordeckFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
     private fun showUnlock(result: Result) {
         val scanType = (context.getSystemService(Context.NFC_SERVICE) as? NfcManager)
-                ?.defaultAdapter
-                ?.takeIf { return@takeIf it.isEnabled }
-                ?.let { return@let ScanType.NFC }
-                ?: ScanType.QR
+            ?.defaultAdapter
+            ?.takeIf { return@takeIf it.isEnabled }
+            ?.let { return@let ScanType.NFC }
+            ?: ScanType.QR
 
         return doordeck?.showUnlock(
-                context = context,
-                type = scanType,
-                callback = unlockCallBack
+            context = context,
+            type = scanType,
+            callback = unlockCallBack
         )
-                ?: result.sendInitializationError()
+            ?: result.sendInitializationError()
     }
 
     private fun updateToken(call: MethodCall, result: Result) {
@@ -78,15 +101,16 @@ class DoordeckFlutterPlugin : FlutterPlugin, MethodCallHandler {
         val authToken = call.argumentAt<String>(0) ?: return result.sendCallError(0, UPDATE_TOKEN_CALL, String::class.toString())
 
         return doordeck
-                ?.updateToken(
-                        authToken = authToken,
-                        ctx = context
-                ) ?: result.sendInitializationError()
+            ?.updateToken(
+                authToken = authToken,
+                ctx = context
+            ) ?: result.sendInitializationError()
     }
 
 
     companion object {
         private const val SHOW_UNLOCK_CALL = "showUnlock"
+        private const val UNLOCK_TILE_ID_CALL = "unlockTileID"
         private const val UPDATE_TOKEN_CALL = "updateToken"
         private const val LOGOUT_CALL = "logout"
         private const val INIT_CALL = "initDoordeck"
@@ -108,22 +132,22 @@ class DoordeckFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
     private fun Result.sendCallError(argumentPosition: Int, methodName: String, classExpected: String) {
         return error(
-                MISMATCH_METHOD_CALL,
-                "Impossible calling $methodName with a class $classExpected in the position $argumentPosition",
-                null
+            MISMATCH_METHOD_CALL,
+            "Impossible calling $methodName with a class $classExpected in the position $argumentPosition",
+            null
         )
     }
 
     private fun Result.sendInitializationError() {
         return error(
-                INITIALIZATION_ERROR,
-                "Trying to access to the Doordeck instance without initializing it first (through $INIT_CALL)",
-                null
+            INITIALIZATION_ERROR,
+            "Trying to access to the Doordeck instance without initializing it first (through $INIT_CALL)",
+            null
         )
     }
 
     /// ===== UNLOCK CALLBACK
-    private val unlockCallBack: UnlockCallback = object: UnlockCallback {
+    private val unlockCallBack: UnlockCallback = object : UnlockCallback {
         override fun invalidAuthToken() {
             channel.invokeMethod(INVALID_AUTH_TOKEN_CALLBACK, null)
         }
