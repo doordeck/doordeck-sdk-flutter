@@ -25,6 +25,14 @@ Flutter Plugin for the Doordeck's SDKs  (Android & iOS)
 ### Android
 Target your app to `minSdkVersion 21`
 
+If you face an error similar to:
+> Manifest merger failed : Attribute application@label value=([APP_NAME]) from (unknown)
+is also present at [com.github.adorsys:secure-storage-android:0.0.2] AndroidManifest.xml:12:9-41 value=(@string/app_name).
+Suggestion: add 'tools:replace="android:label"' to <application> element at AndroidManifest.xml:3:4-43:19 to override.
+
+Please continue as the suggestion says. Be sure you have a string named @string/app_name as your app name, which is your label for your app as well and 
+add the suggestion mentioned.
+
 #
 Then be sure you follow the example.
 Any issues, please raise an issue at the [Github's repo](https://github.com/doordeck/doordeck-sdk-flutter).
