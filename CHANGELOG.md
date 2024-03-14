@@ -1,3 +1,7 @@
+## 2.3.1
+Updated Android library.
+When scanning and 2FA is asked and entered successfully, it'll take you back to scanning.
+
 ## 2.2.2
 Added `unlockTileID` to enable unlocking a tile id (UUID format needed)
 
