@@ -166,7 +166,7 @@ class DoordeckFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
         override fun verificationNeeded() {
             channel.invokeMethod(VERIFICATION_NEEDED_CALLBACK, null)
-            doordeck?.showVerificationScreen(context)
+            doordeck?.showVerificationScreen(context, shouldUnlockAfterSuccessVerifying = true)
         }
     }
 }
