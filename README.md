@@ -21,6 +21,8 @@ Flutter Plugin for the Doordeck's SDKs  (Android & iOS)
    ```
 3. Add the NFC usage description to your project. To achieve this, add a string for the key *Privacy — NFC Scan Usage Description* to your **Info.plist**
   
+Important ⚠️:\
+iOS's SDK implementation should comply with the instructions given in our [native SDK](https://github.com/doordeck/doordeck-sdk-swift)
 
 ### Android
 Target your app to `minSdkVersion 21`
@@ -32,6 +34,9 @@ Suggestion: add 'tools:replace="android:label"' to <application> element at Andr
 
 Please continue as the suggestion says. Be sure you have a string named @string/app_name as your app name, which is your label for your app as well and 
 add the suggestion mentioned.
+
+Important ⚠️:\
+Android's SDK implementation should comply with the instructions given in our [native SDK](https://github.com/doordeck/doordeck-sdk-flutter)
 
 #
 Then be sure you follow the example.
