@@ -1,3 +1,6 @@
+## 2.3.2
+Changed iOS library's reference folder "Aux" to "_Aux" for Windows compatibility
+
 ## 2.3.1
 Updated Android library.
 When scanning and 2FA is asked and entered successfully, it'll take you back to scanning.
